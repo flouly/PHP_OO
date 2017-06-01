@@ -1,0 +1,63 @@
+Arborescence :
+    app/ : la configuration de l application
+    src/ : le code PHP et HTML specifique a  notre projet
+    vendor/ : code generale de l application et les entites
+    web/ : repertoire web racine.le point d entree de notre application(index.php, img/ photo/ js/ css font/)
+
+    Nature des differents fichiers:
+
+    app/
+        Config/
+                parameters.php : toutesles informations de connexion a la BDD .. et autres parametres..
+        Config.php:
+        contient l inclusion des parameters de connexion ala BDD et les retourne dans une methode
+
+    vendor/
+        autoload.php :
+        permet d inclure les bons fichiers lors  d un 'new' (instanciation)
+        Attention: seuls les controllers sont dans le dossier SRC il faut donc preciser que si le namespace n est pas le 'Controller' alors les fichiers sont dans vendor
+        le controller general(Controller\Controller) est egalement dans vendor
+
+        Entity/
+            Produits.php, Membre.php, Commande.php
+            Classes qui contiennent toutes les proprietes de nos entites et getters et les setters.Plain Old PHP Object
+
+    web/
+        index.php :
+        Cle d entree de notre application (SILEX : index.php /  Symphony app.php)
+
+    vendor/
+        manager/
+            PDOManager.php :
+            Cette class represente la connexion a la BDD
+
+            EntityRepository.php :
+            un repository centralise tout ce qui touche a la BDD et la recuperation des entites. pas derequetes ailleur que dans un repository
+Repository/
+    ProduitRepository.php
+        ce fichier contiendra toutes les fonctions lies a l entite produit, demandera a EntityRepository de faire certaines requetes.Les requetes specifique seront codees ici
+
+Controller/
+    Controller.php
+    C est le controller general de l application , il a 2 missions :
+    1 Recuperer  le repository correspondant a l entite dans laquelle je suis
+     getRepository()
+    2 Afficher la vue corrrespondant a l action : render()
+
+src/
+    Controller/
+        ProduitController.php :
+        cette classe herite de du controller general
+        permet de declncher toute les actions lies a l entite produit
+
+    View/
+        Produit/
+        fiche_produir.php.....
+        ces 3 fichiers correspondent aux vues des actions de notre entite Produit
+        plus ces fichiers seront decomposes et auront l extension .html (qd render sera operationnel)
+
+        layout.html :
+        le layout represente la page generale, le template de base.il peut y avoir  plusieurs layout s 'il ya plusieurs structures de page dans notrre application
+/
+vendor/
+    Manager
